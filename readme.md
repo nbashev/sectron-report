@@ -13,10 +13,12 @@ Reports server for working tasks build in Laravel and hosted on Windows Server 2
 * edit php.ini file (sys_temp_dir = 'path/to/my/dir')
 * edit php.ini file (enable error reporting)
 * Add permitions on that tmp folder (used when generating pdf)
----------------------------------------------------------------------------------------------
 
-### License
+
+#### License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
 Sectron Report web-app is internaly used software
-"# sectron-report" 
+
+_sectron-report_
