@@ -22,8 +22,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/', 'ReportsController@store');
     Route::post('/edit/{id}', 'ReportsController@edit');
     Route::post('/delete/{id}', 'ReportsController@destroy');
-    Route::get('/pdf', "ReportsController@pdf");
     Route::get('/reports/{from}/{to}', "ReportsController@reports");
+    Route::get('/pdf', "ReportsController@pdf");
 
     // Route::get('/', function () {
     //     return view('pages.reports');

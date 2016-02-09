@@ -4,7 +4,7 @@ return array(
 
     'pdf' => array(
         'enabled' => true,
-        'binary' => public_path('bin/wkhtmltopdf'),
+        'binary' => public_path('/bin/wkhtmltopdf'),
         'timeout' => false,
         'options' => array(),
     ),
