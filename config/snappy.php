@@ -4,7 +4,7 @@ return array(
 
     'pdf' => array(
         'enabled' => true,
-        'binary' => base_path('vendor/h4cc/wkhtmltopdf-amd64/bin/wkhtmltopdf'),
+        'binary' => public_path('bin/wkhtmltopdf'),
         'timeout' => false,
         'options' => array(),
     ),
