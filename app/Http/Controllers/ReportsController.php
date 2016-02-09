@@ -169,10 +169,13 @@ class ReportsController extends Controller
         $user = Auth::user();
         $report_types = ReportType::all();
 
+        // -- for testing on php web serve problem with assets
+
         // return $view = View::make('reports.generate-report', compact('reports', 'weekNum', 'report_types', 'user', 'dt'))->render();
+        // $pdf = PDF::loadView('reports.generate-pdf', compact('reports', 'weekNum', 'report_types', 'user', 'dt'));
+        // return $pdf->stream('izvestaj_' . $user->name . '_nedela_' . $weekNum . '_datum_' . $dt . '.pdf');
 
-        $pdf = PDF::loadView('reports.generate-pdf', compact('reports', 'weekNum', 'report_types', 'user', 'dt'));
-
+        $pdf = PDF::loadView('reports.generate-report', compact('reports', 'weekNum', 'report_types', 'user', 'dt'));
         return $pdf->stream('izvestaj_' . $user->name . '_nedela_' . $weekNum . '_datum_' . $dt . '.pdf');
 
     }
