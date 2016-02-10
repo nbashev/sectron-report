@@ -293,14 +293,6 @@ $('#btn_modal_yes').on('click', function() {
 	    })
 })
 
-$(document.body).bind("click", ".search input", function(event) {
-	// $(".hidden-datetime").css('visibility', 'visible');
-	// $table.bootstrapTable('refresh');
-})
-$(document.body).bind("blur focusout", ".search input", function(event) {
-	// $(".hidden-datetime").css('visibility', 'hidden');
-})
-
 $('#context-menu').hover(function() {
     $(this).css('cursor','pointer');
 });
@@ -331,15 +323,29 @@ function prep_to_add_report() {
 
 
 // ----------------------------------------------------------------------
-//
+//			E V E N T S
 // ----------------------------------------------------------------------
 
 $(document.body).on("click", ".list-element", function(event) {
+	console.log(event.target)
 	$(event.target).attr("contentEditable", true);
 })
 $(document.body).on("blur", ".list-element", function(event) {
 	$(event.target).attr("contentEditable", false);
 })
+$(document.body).on("copy", function(event) {
+	console.log(event.target)
+})
+
+$(document.body).bind("click", ".search input", function(event) {
+	// $(".hidden-datetime").css('visibility', 'visible');
+	// $table.bootstrapTable('refresh');
+})
+$(document.body).bind("blur focusout", ".search input", function(event) {
+	// $(".hidden-datetime").css('visibility', 'hidden');
+})
+
+// ----------------------------------------------------------------------
 
 // this button will add more rows of list table
 $("#btn_add_list").on("click", function() {
@@ -378,11 +384,11 @@ function get_input_data() {
 		var text = $(this).find("td:first").text()
 		if(text.trim() != "") {
 			if($(this).find("td:first").attr("list-id") == 0) {
-				// console.log($(this).find("td:first").text())
-				list_new.push($(this).find("td:first").html());
+				list_new.push($(this).find("td:first").text());
 			} else {
 				list_to_update.push($(this).find("td:first").attr("list-id"))
-				list.push($(this).find("td:first").html())
+				// console.log($(this).find("td:first").clone().children().remove().end().text())
+				list.push($(this).find("td:first").text())
 			}
 		}
 	})
@@ -422,6 +428,12 @@ $("#btn_send").on("click", function() {
 	    	}
 	    })
 })
+
+$("#btn_reset").on("click", function() {
+	get_input_data()
+})
+
+
 
 // get the requested reports
 $("#btn_get_reports").on('click', function() {

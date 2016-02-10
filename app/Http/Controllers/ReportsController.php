@@ -95,12 +95,12 @@ class ReportsController extends Controller
         //get array of ajax data
         $update_data = Input::get('data');
 
+        // update if report is of different type
         if ($report->type_id != $update_data['type_id']) {
-            $report = Report::firstOrNew(['datetime' => $update_data['datetime'],
-                'type_id' => $update_data['type_id'],
-                'user_id' => Auth::user()->id]);
+
+            $report->type_id = $update_data['type_id'];
             $report->save();
-            print_r($report);
+
         }
 
         print_r($update_data);

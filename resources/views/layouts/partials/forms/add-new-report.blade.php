@@ -41,7 +41,7 @@
         </div>
         <div class="form-group">
           <div class="col-xs-10 col-xs-offset-2">
-            <button type="reset" class="btn btn-default">Откажи</button>
+            <button type="reset" class="btn btn-default" id="btn_reset">Откажи</button>
             <button type="button" class="btn btn-primary" id="btn_send">Внеси</button>
             <button type="button" class="btn btn-primary" id="btn_update">Промени</button>
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
