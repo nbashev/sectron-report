@@ -1,10 +1,17 @@
 <?php
 
+// windows issue
+// if path to wkhtmltopdf has spaces,
+// the page will fail
+//
+// alternative use of double quotes in single quotes
+
 return array(
 
     'pdf' => array(
         'enabled' => true,
         'binary' => public_path('/bin/wkhtmltopdf'),
+        // 'binary' => '"C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe"',
         'timeout' => false,
         'options' => array(
             'print-media-type' => true,

@@ -145,8 +145,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        Anam\PhantomMagick\ConverterServiceProvider::class,
-        PhantomPdf\Laravel\Laravel5ServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
 
     ],
@@ -171,7 +169,6 @@ return [
         'Bus' => Illuminate\Support\Facades\Bus::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,
-        'Converter' => Anam\PhantomMagick\Facades\Converter::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
         'Crypt' => Illuminate\Support\Facades\Crypt::class,
         'DB' => Illuminate\Support\Facades\DB::class,
@@ -185,7 +182,6 @@ return [
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
-        // 'PDF' => PhantomPdf\Laravel\PDFFacade::class,
         'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
