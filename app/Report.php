@@ -22,8 +22,9 @@ class Report extends Model
         return $this->hasMany('App\Lista', 'report_id', 'id');
     }
 
-    // public function lists()
-    // {
-    //     return $this->belongsToMany('App\Lista', 'lists_reports', 'report_id', 'list_id');
-    // }
+    public function user()
+    {
+        return $this->hasOne('App\User', 'id', 'user_id');
+    }
+
 }

@@ -70,6 +70,7 @@
 								style="display: none">
 							<thead>
 								<tr>
+									<th data-field="user_name">Вработен</th>
 									<th data-field="datetime">Датум</th>
 									<th data-field="type_name">Вид на работа</th>
 									<th data-field="nova_lista" data-width="60%">Опис</th>
@@ -301,6 +302,7 @@ $('#context-menu').hover(function() {
 $(".fixed-table-toolbar").append("<div class=\"pull-left\"><h3>Календарска недела: " + weekNum + "</h3></div>")
 
 $("#add_report").on('click', function(){
+	$('a[data-toggle="tab"]:first').tab('show')
 	prep_to_add_report();
 })
 
@@ -337,12 +339,13 @@ $(document.body).on("copy", function(event) {
 	console.log(event.target)
 })
 
-$(document.body).bind("click", ".search input", function(event) {
-	// $(".hidden-datetime").css('visibility', 'visible');
-	// $table.bootstrapTable('refresh');
-})
-$(document.body).bind("blur focusout", ".search input", function(event) {
-	// $(".hidden-datetime").css('visibility', 'hidden');
+// if search box is empty, clear the fields
+$(document.body).on("blur", ".search input:eq(1)", function(event) {
+	if($(".search input:eq(1)").val() == "") {
+		$(".hidden-datetime").css('visibility', 'hidden');
+		$(".hidden-username").css('visibility', 'hidden');
+		console.log("empty search")
+	}
 })
 
 // ----------------------------------------------------------------------
@@ -431,9 +434,21 @@ $("#btn_send").on("click", function() {
 
 $("#btn_reset").on("click", function() {
 	get_input_data()
+	window.location.reload();
 })
 
-
+// generate pdf report from time period
+$("#generate_report").on("click", function(event) {
+	event.preventDefault();
+	if($('.nav-tabs .active a').attr('aria-controls') == "reports") {
+		console.log('generate report')
+		window.location.href = '/pdf';
+	} else {
+		console.log('generate period report')
+		var period_url = '/pdf-period/' + from_period + '/' + to_period;
+		window.location.href = period_url;
+	}
+})
 
 // get the requested reports
 $("#btn_get_reports").on('click', function() {
@@ -445,20 +460,24 @@ $("#btn_get_reports").on('click', function() {
 	    	type: 'GET',
 	    	url: get_url,
 	    	success:function(data){
-	    		console.log(data)
+	    		// console.log(data)
 				reports_range = data;
 
 				var prev_date = moment("2000-01-01").format("DD/MM/YYYY");
 				$.each( reports_range, function( key, value ) {
 
+
+
 					if(moment(value.datetime).format("DD.MM.YYYY") == prev_date)	{
 						prev_date = moment(value.datetime).format("DD.MM.YYYY");
 						value["datetime_org"] = moment(value.datetime).format("DD.MM.YYYY");
 						value.datetime = "<span class=\"hidden-datetime\" style=\"visibility: hidden\">" + moment(value.datetime).format("dddd, DD.MM.YYYY") + "</span>";
+						value["user_name"] = "<span class=\"hidden-username\" style=\"visibility: hidden\">" + value.user.name + "</span>";
 					} else {
 						prev_date = moment(value.datetime).format("DD.MM.YYYY");
 						value["datetime_org"] = moment(value.datetime).format("DD.MM.YYYY");
 						value.datetime = moment(value.datetime).format("dddd, DD.MM.YYYY");
+						value["user_name"] = value.user.name
 					}
 					//value.datetime = moment(value.datetime).format("dddd, DD.MM.YYYY");
 					value["type_name"] = value.type.name;
@@ -468,12 +487,20 @@ $("#btn_get_reports").on('click', function() {
 						text_lista +="<li>" + value.text + "</li>";
 					})
 					value["nova_lista"] = text_lista;
+					// console.log(value.user.name)
 				});
 
 			$table_range.show();
 			$table_range.bootstrapTable('destroy');
 
-			$table_range.bootstrapTable({data:reports_range});
+			$table_range.bootstrapTable({
+				data:reports_range,
+				onSearch: function (event) {
+				        console.log(event)
+				        $(".hidden-datetime").css('visibility', 'visible');
+						$(".hidden-username").css('visibility', 'visible');
+				    }
+				});
 
 	    	}
 	    })

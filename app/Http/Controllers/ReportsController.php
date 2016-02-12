@@ -180,12 +180,38 @@ class ReportsController extends Controller
 
     }
 
+    public function pdfPeriod($from, $to)
+    {
+        $dt = Carbon::now();
+
+        // dd($from);
+        $from = Carbon::parse($from);
+        $to = Carbon::parse($to);
+
+        $reports = Report::where('datetime', '>=', $from)
+            ->where('datetime', '<=', $to)
+            ->where('user_id', Auth::user()->id)
+            ->with('type', 'lists', 'user')
+            ->orderBy('datetime')
+            ->get();
+
+        $report_types = ReportType::all();
+
+        $from = $from->format('d.m.Y');
+        $to = $to->format('d.m.Y');
+
+        // return view('reports.generate-report-period', compact('reports', 'report_types', 'dt', 'from', 'to'));
+
+        $pdf = PDF::loadView('reports.generate-report-period', compact('reports', 'report_types', 'dt', 'from', 'to'));
+        return $pdf->stream('periodicen_izvestaj');
+    }
+
     public function reports($from, $to)
     {
         $reports = Report::where('datetime', '>=', $from)
             ->where('datetime', '<=', $to)
             ->where('user_id', Auth::user()->id)
-            ->with('type', 'lists')
+            ->with('type', 'lists', 'user')
             ->orderBy('datetime')
             ->get();
 
