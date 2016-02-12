@@ -27,8 +27,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pdf', "ReportsController@pdf");
     Route::get('/pdf-period/{from}/{to}', "ReportsController@pdfPeriod");
 
-    // Route::get('/', function () {
-    //     return view('pages.reports');
-    // });
-
 });
