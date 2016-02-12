@@ -51,7 +51,6 @@
 	</div>
 </div>
 
-
 @endsection
 
 @section('scripts')
@@ -100,6 +99,12 @@ $.each( reports, function( key, value ) {
 });
 
 $table.bootstrapTable({data:reports});
+
+	// fix for print pdf page brake
+	bs = $('.bootstrap-table')
+	t = $('#table_t1')
+	bs.remove()
+	$('.clearfix').prepend(t)
 
 });
 

@@ -6,7 +6,11 @@ return array(
         'enabled' => true,
         'binary' => public_path('/bin/wkhtmltopdf'),
         'timeout' => false,
-        'options' => array(),
+        'options' => array(
+            'print-media-type' => true,
+            'footer-font-size' => 8,
+            'footer-center' => '- [page] -',
+        ),
     ),
     'image' => array(
         'enabled' => true,
