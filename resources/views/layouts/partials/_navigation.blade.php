@@ -7,8 +7,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-		<a class="navbar-brand" href="#">
-        	<img alt="Brand" id="brand" src="/img/sectron-brand-min.png">
+		<a class="navbar-brand" href="http://www.sectron.mk" >
+        	<img alt="Brand" id="brand" src="/img/logo-circle.png">
       	</a>
     	{{-- <a href="#" class="pull-left"><img src="/img/sectron-brand.png"></a> --}}
     </div>
@@ -17,7 +17,7 @@
       <ul class="nav navbar-nav">
         <li><a href="/">Преглед <span class="sr-only">(current)</span></a></li>
         <li><a id="add_report" href="#">Додади Извештај <span class="sr-only"></span></a></li>
-        <li><a id="generate_report" href="/pdf">Генерирај Извештај <span class="glyphicon glyphicon-download-alt"></span></a></li>
+        <li><a id="generate_report" href="/pdf">Генерирај Извештај &nbsp;<span class="glyphicon glyphicon-download-alt"></span></a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -41,6 +41,6 @@
 
 <style>
 	#brand {
-		max-height: 25px;
+		max-height: 30px;
 	}
 </style>
