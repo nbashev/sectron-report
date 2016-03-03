@@ -24,6 +24,8 @@ class AuthController extends Controller
 
     protected $loginPath = '/login';
 
+    protected $redirectTo = '/';
+
     /**
      * Set the maximum number of login attempts for delaying further attempts.
      * @var integer
