@@ -18,6 +18,10 @@ class PasswordController extends Controller
     |
     */
 
+    protected $redirectTo = '/';
+    // we can try if this will finaly work, not to redirecto to default /home path
+
+
     use ResetsPasswords;
 
     /**
