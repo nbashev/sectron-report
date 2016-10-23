@@ -44,7 +44,7 @@
                                     <i class="fa fa-btn fa-sign-in"></i> Најави ме
                                 </button>
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Заборевена лозинка ?</a>
+                                <!-- <a class="btn btn-link" href="{{ url('/password/reset') }}">Заборевена лозинка ?</a> -->
                             </div>
                         </div>
                     </form>

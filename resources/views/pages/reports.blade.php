@@ -60,6 +60,9 @@
 								<div class="col-xs-1 col-offset-xs-1">
 						            <button type="button" id="btn_get_reports" class="btn btn-default">Пребарај</button>
 								</div>
+								<div class="col-xs-7 pull-righ-div">
+									<label class="pull-right col-xs-7 control-label">Пронајдени се вкупно: <span id="rows_count_table" ></span> записи</label>
+								</div>
 							</div>
 						</form>
 
@@ -112,6 +115,11 @@
 
 @section('styles')
 <style type="text/css">
+	
+	#rows_count_table {
+		color: red;
+	}
+
 
 </style>
 @endsection
@@ -123,6 +131,7 @@
 $(document).ready(function(){
 
 moment.locale('mk');
+$('#rows_count_table').parent().hide()
 
 // globaly userd vars
 $table = $('#table_t1');
@@ -141,7 +150,9 @@ $('.input-group.date').datepicker({
     todayBtn: "linked",
     language: "mk",
     autoclose: true,
-    weekStart: 1
+    weekStart: 1,
+    todayHighlight: true,
+    daysOfWeekHighlighted: "0,6",
 });
 $('#dt_1 input').val(moment().format('DD.MM.YYYY'))
 
@@ -155,7 +166,10 @@ $('#dt_p').each(function() {
     	todayBtn: "linked",
 	    language: "mk",
 	    autoclose: true,
-	    weekStart: 1
+	    weekStart: 1,
+	    weekStart: 1,
+    	todayHighlight: true,
+    	daysOfWeekHighlighted: "0,6",
 	});
 });
 
@@ -348,6 +362,18 @@ $(document.body).on("blur", ".search input:eq(1)", function(event) {
 	}
 })
 
+$(document.body).on("input", ".search input:eq(1)", function(event) {
+	// console.log("input:" + this.value)
+	$('#rows_count_table').text($table_range.bootstrapTable('getData').length)
+})
+
+$('#table_t2').on('search.bs.table', function () {
+    console.log('search event occured...')
+	$('#rows_count_table').parent().show()
+    $('#rows_count_table').text($table_range.bootstrapTable('getData').length)
+});
+
+
 // ----------------------------------------------------------------------
 
 // this button will add more rows of list table
@@ -453,6 +479,12 @@ $("#generate_report").on("click", function(event) {
 // get the requested reports
 $("#btn_get_reports").on('click', function() {
 
+		
+		// modifications to the find status label for search
+		$('#rows_count_table').parent().show()
+		$('#rows_count_table').parent().css({"padding-right":"0" })
+
+
 		reports_range = [];
 	    var get_url = '/reports/' + from_period + '/' + to_period;
 
@@ -460,12 +492,14 @@ $("#btn_get_reports").on('click', function() {
 	    	type: 'GET',
 	    	url: get_url,
 	    	success:function(data){
-	    		// console.log(data)
 				reports_range = data;
+
+				// update the finded items
+				$('#rows_count_table').text(reports_range.length)
+	    		// console.log(reports_range.length)
 
 				var prev_date = moment("2000-01-01").format("DD/MM/YYYY");
 				$.each( reports_range, function( key, value ) {
-
 
 
 					if(moment(value.datetime).format("DD.MM.YYYY") == prev_date)	{
@@ -496,9 +530,8 @@ $("#btn_get_reports").on('click', function() {
 			$table_range.bootstrapTable({
 				data:reports_range,
 				onSearch: function (event) {
-				        console.log(event)
 				        $(".hidden-datetime").css('visibility', 'visible');
-						$(".hidden-username").css('visibility', 'visible');
+						$(".hidden-username").css('visibility', 'visible');						
 				    }
 				});
 
