@@ -73,7 +73,7 @@ current_row = 0;
 // --------------------
 
 
-var format_report_date = moment($("#report_date").text()).format("dddd, DD.MM.YYYY H:mm:ss");
+var format_report_date = moment($("#report_date").text()).format("dddd, DD.MM.YYYY HH:mm:ss");
 $("#report_date").text(format_report_date);
 
 var prev_date = moment("2000-01-01").format("DD/MM/YYYY");
